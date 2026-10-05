@@ -1,4 +1,5 @@
 import type { ErrorRequestHandler } from "express";
+import multer from "multer";
 import { ZodError } from "zod";
 
 export const errorMiddleware: ErrorRequestHandler = (
@@ -13,6 +14,24 @@ export const errorMiddleware: ErrorRequestHandler = (
     return res.status(400).json({
       message: "Validation failed.",
       errors: error.issues,
+    });
+  }
+
+  if (error instanceof multer.MulterError) {
+    if (error.code === "LIMIT_FILE_SIZE") {
+      return res.status(400).json({
+        message: "Image file must not exceed 5 MB.",
+      });
+    }
+
+    if (error.code === "LIMIT_FILE_COUNT") {
+      return res.status(400).json({
+        message: "Only one image can be uploaded.",
+      });
+    }
+
+    return res.status(400).json({
+      message: error.message,
     });
   }
 
