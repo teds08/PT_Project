@@ -7,6 +7,7 @@ import { updateAnimeFavorite } from "./handlers/update-anime-favorite.handler";
 import { updateAnimeStatus } from "./handlers/update-anime-status.handler";
 import { deleteAnime } from "./handlers/delete-anime.handler";
 import { getAnime } from "./handlers/get-anime.handler";
+import { getAnimeById } from "./handlers/get-anime-by-id.handler";
 
 export class AnimeController {
   async create(req: Request, res: Response) {
@@ -35,5 +36,9 @@ export class AnimeController {
 
   async get(req: Request, res: Response) {
     return getAnime(req, res);
+  }
+
+  async getById(req: Request, res: Response) {
+    return getAnimeById(req, res);
   }
 }

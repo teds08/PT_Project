@@ -15,4 +15,25 @@ export class GetAnimeService {
 
     return this.getAnimeRepository.findAllByUserId(userId);
   }
+
+  async executeById(animeId: number, userId: number): Promise<CreatedAnime> {
+    if (!Number.isInteger(animeId) || animeId <= 0) {
+      throw new Error("Invalid anime ID.");
+    }
+
+    if (!Number.isInteger(userId) || userId <= 0) {
+      throw new Error("Invalid user ID.");
+    }
+
+    const anime = await this.getAnimeRepository.findByIdAndUserId(
+      animeId,
+      userId,
+    );
+
+    if (!anime) {
+      throw new Error("Anime not found.");
+    }
+
+    return anime;
+  }
 }

@@ -15,6 +15,8 @@ router.post("/create", uploadAnimeImage, (req, res) =>
 
 router.get("/", (req, res) => animeController.get(req, res));
 
+router.get("/:id", (req, res) => animeController.getById(req, res));
+
 router.patch("/:id/progress", (req, res) =>
   animeController.updateProgress(req, res),
 );
