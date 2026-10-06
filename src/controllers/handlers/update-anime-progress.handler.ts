@@ -5,8 +5,6 @@ import { updateAnimeProgressSchema } from "../../validations/update-anime-progre
 
 const updateAnimeService = new UpdateAnimeService();
 
-const DEV_USER_ID = 1;
-
 export const updateAnimeProgress = async (req: Request, res: Response) => {
   const animeId = Number(req.params.id);
 
@@ -30,7 +28,7 @@ export const updateAnimeProgress = async (req: Request, res: Response) => {
   try {
     const anime = await updateAnimeService.executeProgress(
       animeId,
-      DEV_USER_ID,
+      req.userId,
       progress,
     );
 

@@ -7,6 +7,17 @@ export const initDatabase = async (): Promise<void> => {
     await client.query("BEGIN");
 
     await client.query(`
+      CREATE TABLE IF NOT EXISTS users (
+        id SERIAL PRIMARY KEY,
+        username VARCHAR(100) NOT NULL,
+        email VARCHAR(255) NOT NULL UNIQUE,
+        password VARCHAR(255) NOT NULL,
+        created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
+    await client.query(`
       CREATE TABLE IF NOT EXISTS anime_list (
         id SERIAL PRIMARY KEY,
         user_id INTEGER NOT NULL,
@@ -44,6 +55,7 @@ export const initDatabase = async (): Promise<void> => {
     await client.query("COMMIT");
 
     console.log("Database initialized successfully.");
+    console.log("users table is ready.");
     console.log("anime_list table is ready.");
   } catch (error) {
     await client.query("ROLLBACK");

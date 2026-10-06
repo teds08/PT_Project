@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 
 import animeRoutes from "./routes/anime.routes";
+import authRoutes from "./routes/auth.routes";
 import { errorMiddleware } from "./middleware/error.middleware";
 
 dotenv.config();
@@ -22,6 +23,8 @@ app.get("/", (_req, res) => {
     message: "Anime List Tracker API is running.",
   });
 });
+
+app.use("/api/auth", authRoutes);
 
 app.use("/api/anime", animeRoutes);
 

@@ -5,8 +5,6 @@ import { createAnimeSchema } from "../../validations/create-anime.validation";
 
 const createAnimeService = new CreateAnimeService();
 
-const DEV_USER_ID = 1;
-
 export const createAnime = async (req: Request, res: Response) => {
   const validation = createAnimeSchema.safeParse(req.body);
 
@@ -30,7 +28,7 @@ export const createAnime = async (req: Request, res: Response) => {
   try {
     const anime = await createAnimeService.execute(
       {
-        user_id: DEV_USER_ID,
+        user_id: req.userId,
         title,
         description,
         episodes,

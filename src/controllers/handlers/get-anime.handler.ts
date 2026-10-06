@@ -4,11 +4,9 @@ import { GetAnimeService } from "../../services/get-anime.service";
 
 const getAnimeService = new GetAnimeService();
 
-const DEV_USER_ID = 1;
-
-export const getAnime = async (_req: Request, res: Response) => {
+export const getAnime = async (req: Request, res: Response) => {
   try {
-    const anime = await getAnimeService.execute(DEV_USER_ID);
+    const anime = await getAnimeService.execute(req.userId);
 
     return res.status(200).json({
       message: "Anime retrieved successfully.",

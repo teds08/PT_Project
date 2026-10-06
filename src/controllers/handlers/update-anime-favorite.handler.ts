@@ -5,8 +5,6 @@ import { updateAnimeFavoriteSchema } from "../../validations/update-anime-favori
 
 const updateAnimeService = new UpdateAnimeService();
 
-const DEV_USER_ID = 1;
-
 export const updateAnimeFavorite = async (req: Request, res: Response) => {
   const animeId = Number(req.params.id);
 
@@ -30,7 +28,7 @@ export const updateAnimeFavorite = async (req: Request, res: Response) => {
   try {
     const anime = await updateAnimeService.executeFavorite(
       animeId,
-      DEV_USER_ID,
+      req.userId,
       is_favorite,
     );
 

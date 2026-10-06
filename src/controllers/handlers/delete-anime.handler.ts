@@ -4,8 +4,6 @@ import { DeleteAnimeService } from "../../services/delete-anime.service";
 
 const deleteAnimeService = new DeleteAnimeService();
 
-const DEV_USER_ID = 1;
-
 export const deleteAnime = async (req: Request, res: Response) => {
   const animeId = Number(req.params.id);
 
@@ -16,7 +14,7 @@ export const deleteAnime = async (req: Request, res: Response) => {
   }
 
   try {
-    await deleteAnimeService.execute(animeId, DEV_USER_ID);
+    await deleteAnimeService.execute(animeId, req.userId);
 
     return res.status(200).json({
       message: "Anime deleted successfully.",
